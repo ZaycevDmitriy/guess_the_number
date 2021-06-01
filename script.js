@@ -5,31 +5,52 @@ const isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n); // если число то функция вернет true
 }
 
+// function getUserNumber(string) {
+//   const n = prompt(string);
+  
+//   if (isNumber(n)) {
+//     return +n;
+
+//   } else if (n === null) {
+//     return null;
+
+//   } else {
+//     getUserNumber(string)
+//   }
+// } 
+
 const guessNumber = function () {
   const hiddenNumber = 10;
   let count = 10;
 
   function getNumberUser() {
-    count -= 1;
-    console.log(count);
+    count--;
+    // console.log(count);
     if (count === 0) return;
     const number = prompt('Угадай число от 1 до 100');
 
     if (number > hiddenNumber && number !== null) {
-      alert('Загаданное число меньше');
+      alert(`Загаданное число меньше, осталось попыток ${count}`);
       getNumberUser();
+
     } else if (number < hiddenNumber  && number !== null) {
-      alert('Загаданное число больше');
+      alert(`Загаданное число больше, осталось попыток ${count}`);
       getNumberUser();
+
     } else if (!isNumber(number) && number !== null) {
-      alert('Введи число!');
-      getNumberUser();
+      if (confirm('Введи число! Введите новое значение!')) {
+        getNumberUser();
+      };
+
     } else if (number === null) {
       alert('Игра окончена');
-      return;
-    } else if (number === hiddenNumber) {
-      alert('Поздравляю, Вы угадали!!!');
-      return;
+
+    } else if (number == hiddenNumber) {
+      if (confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')) {
+        count = 10;
+        getNumberUser();
+      };
+
     }
   }
   getNumberUser();
