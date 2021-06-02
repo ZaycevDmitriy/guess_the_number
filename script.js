@@ -1,15 +1,14 @@
 'use strict';
-// const number = prompt('Угадай число от 1 до 100');
-// console.log(number)
 const isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n); // если число то функция вернет true
 }
-
+debugger
 function getUserNumber(string) {
   const num = prompt(string);
-  
+
   if (isNumber(num)) {
     return +num;
+
   }
 
   if (num === null) {
@@ -17,12 +16,15 @@ function getUserNumber(string) {
   }
 
   alert('Введи число!')
-  getUserNumber(string);
+
+  return getUserNumber(string);
 }
 
 function randomNumber(n, m) {
-const minNumber = Math.min(n, m);
-const range = Math.abs(m - n);
+  const minNumber = Math.min(n, m);
+
+  const range = Math.abs(m - n);
+
 return Math.round(Math.random() * range + minNumber);
 }
 
@@ -32,7 +34,7 @@ const guessNumber = function () {
 
   function game() {
     count--;
-    // console.log(count);
+
     if (count === 0) {
       if (confirm("Попытки закончились, хотите сыграть еще?")) {
         guessNumber();
@@ -45,6 +47,7 @@ const guessNumber = function () {
 
     if (number === null) {
       alert('Игра окончена');
+      return;
     }
     if (number > hiddenNumber) {
       alert(`Загаданное число меньше, осталось попыток ${count}`);
@@ -54,11 +57,7 @@ const guessNumber = function () {
       alert(`Загаданное число больше, осталось попыток ${count}`);
       game();
     }
-    // if (!number) {
-    //   if (confirm('Введи число! Введите новое значение!')) {
-    //     game();
-    //   }
-    // }
+
     if (number === hiddenNumber) {
       if (confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')) {
         guessNumber();
