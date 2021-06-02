@@ -27,7 +27,7 @@ return Math.round(Math.random() * range + minNumber);
 }
 
 const guessNumber = function () {
-  const hiddenNumber = randomNumber(0, 100);
+  const hiddenNumber = randomNumber(1, 100);
   let count = 10;
 
   function game() {
