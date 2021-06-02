@@ -5,55 +5,68 @@ const isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n); // если число то функция вернет true
 }
 
-// function getUserNumber(string) {
-//   const n = prompt(string);
+function getUserNumber(string) {
+  const num = prompt(string);
   
-//   if (isNumber(n)) {
-//     return +n;
+  if (isNumber(num)) {
+    return +num;
+  }
 
-//   } else if (n === null) {
-//     return null;
+  if (num === null) {
+    return null;
+  }
 
-//   } else {
-//     getUserNumber(string)
-//   }
-// } 
+  alert('Введи число!')
+  getUserNumber(string);
+}
+
+function randomNumber(n, m) {
+const minNumber = Math.min(n, m);
+const range = Math.abs(m - n);
+return Math.round(Math.random() * range + minNumber);
+}
 
 const guessNumber = function () {
-  const hiddenNumber = 10;
+  const hiddenNumber = randomNumber(0, 100);
   let count = 10;
 
-  function getNumberUser() {
+  function game() {
     count--;
     // console.log(count);
-    if (count === 0) return;
-    const number = prompt('Угадай число от 1 до 100');
+    if (count === 0) {
+      if (confirm("Попытки закончились, хотите сыграть еще?")) {
+        guessNumber();
+      }
+      return;
+    }
 
-    if (number > hiddenNumber && number !== null) {
-      alert(`Загаданное число меньше, осталось попыток ${count}`);
-      getNumberUser();
+    const number = getUserNumber('Угадай число от 1 до 100');
+    console.dir(game)
 
-    } else if (number < hiddenNumber  && number !== null) {
-      alert(`Загаданное число больше, осталось попыток ${count}`);
-      getNumberUser();
-
-    } else if (!isNumber(number) && number !== null) {
-      if (confirm('Введи число! Введите новое значение!')) {
-        getNumberUser();
-      };
-
-    } else if (number === null) {
+    if (number === null) {
       alert('Игра окончена');
-
-    } else if (number == hiddenNumber) {
+    }
+    if (number > hiddenNumber) {
+      alert(`Загаданное число меньше, осталось попыток ${count}`);
+      game();
+    }
+    if (number < hiddenNumber) {
+      alert(`Загаданное число больше, осталось попыток ${count}`);
+      game();
+    }
+    // if (!number) {
+    //   if (confirm('Введи число! Введите новое значение!')) {
+    //     game();
+    //   }
+    // }
+    if (number === hiddenNumber) {
       if (confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')) {
-        count = 10;
-        getNumberUser();
-      };
-
+        guessNumber();
+      }
+      return;
     }
   }
-  getNumberUser();
+  game();
 }
 
 guessNumber();
